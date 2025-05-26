@@ -1,0 +1,22 @@
+// import { useState } from 'react'
+// import reactLogo from './assets/react.svg'
+// import viteLogo from '/vite.svg'
+import './App.css'
+import { CreateEmployee } from './pages/createEmployee/CreateEmployee'
+// import { EditEmployee } from './pages/editEmployee/EditEmployee'
+// import { Header } from './components/header/Header'
+// import { Login } from './pages/login/Login'
+
+function App() {
+  // const [count, setCount] = useState(0)
+
+  return (
+    <>
+      {/* <Login /> */}
+      <CreateEmployee />
+      {/* <EditEmployee /> */}
+    </>
+  )
+}
+
+export default App

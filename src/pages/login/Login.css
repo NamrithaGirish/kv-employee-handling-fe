@@ -1,0 +1,42 @@
+.row{
+    display: flex;
+    height: 100vh; 
+}
+.column1{
+    display: flex; 
+    background-color: rgba(3, 174, 238, 0.1);
+    width:50%;
+    justify-content: center;
+    align-items: center;  
+    margin: 20px;
+    border-radius: 10px;
+}
+.login_image{
+    object-fit: cover;
+    border-radius: 50%;
+    width:80%;
+    height:80%; 
+}
+.column2 {
+    background-color: white;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center; /*alligns centre along h*/
+    align-items: center;  /*alligns centre along v */
+}
+
+.column2 img{
+    width:30%;
+    margin-bottom: 20px;
+    margin-left: 13%;
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:15px;
+    width: 100%;
+}

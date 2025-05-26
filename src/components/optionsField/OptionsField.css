@@ -1,0 +1,59 @@
+/* .form{
+    width: 30%;
+    padding: 15px;
+    flex-direction: row;
+
+    background-color: white;
+   
+}
+.form select{
+    width:40%;
+    height: 45px;
+    border-color: #8B8D9D;
+    border-width: 1px,1px,1px,1px;
+    font-family: sans-serif;
+    padding-left: 10px;
+    border-radius: 5px;
+    border-bottom:1px solid #ddd;
+} */
+
+.form-options{
+    /* display: grid;
+    grid-auto-columns: auto; */
+    /* flex-direction: column; */
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+    width: 33%;
+    padding: 15px;
+    /* background-blend-mode:normal; */
+   
+}
+.form-options label{
+    font-family: 'Courier New', Courier, monospace;
+}
+/* .status{
+    height: 50px;
+    width:33%;
+    font-family: 'Courier New', Courier, monospace;
+} */
+.form-options select {
+    /* height: 45px; */
+    height: 40px;
+    border-color: #8B8D9D;
+    /* border-width: 1px,1px,1px,1px; */
+    font-family: sans-serif;
+    padding-left: 10px;
+    border-radius: 5px;
+    /* border-bottom:1px solid #ddd; */
+}
+/* .status,.role {
+    width:30%;
+    height: 45px;
+    border-color: #8B8D9D;
+    border-width: 1px,1px,1px,1px;
+    font-family: sans-serif;
+    padding-left: 10px;
+    border-radius: 5px;
+    border-bottom:1px solid #ddd;
+} */

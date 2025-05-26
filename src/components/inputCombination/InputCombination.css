@@ -1,0 +1,27 @@
+.form-input{
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+    width: 33%;
+    padding: 15px;
+    /* background-blend-mode:normal; */
+   
+}
+.form-input label{
+    font-family: 'Courier New', Courier, monospace;
+}
+.form-input input {
+    /* width:30%; */
+    /* height: 45px; */
+    height: 40px;
+    border-color: #8B8D9D;
+    /* border-width: 1px,1px,1px,1px; */
+    font-family: sans-serif;
+    padding-left: 10px;
+    border-radius: 5px;
+    background-color: #FAFAFA;
+    border-style: solid;
+    border-color: #D9D9D9;
+    /* border-bottom:1px solid #ddd; */
+}
+
