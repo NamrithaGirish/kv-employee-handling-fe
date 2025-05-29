@@ -1,0 +1,79 @@
+.inside-header{
+    /* display: inline-block;
+     */
+     position: absolute;
+     margin-top: 4.5%;
+     width: 25%;
+     /* float: right; */
+     top:0;
+     right:0;
+}
+.redirect-button{
+    /* display: inline-block;
+     */
+     position: absolute;
+     margin-top: 6%;
+     width: 10%;
+     /* float: right; */
+     top:0;
+     right:0;
+}
+.edit-option-status{
+    position: absolute;
+    /* padding-top: 30px */
+    /* float: right; */
+    width: fit-content;
+    /* margin-left: 30px; */
+}
+.edit-status-in-view{
+    display: flex;
+    /* font-size: large; */
+    width: 150px;
+    height: 39px;
+    /* background-color: aqua; */
+    align-items: center;
+    justify-content: left;
+
+    border-radius: 40px;
+    border-style: none;
+    background-color: rgba(234, 249, 255, 1);
+    /* padding:2px; */
+    text-align: center;
+    margin-right: 200px;
+    /* align-items: center; */
+}
+.edit-option{
+    position: absolute;
+    /* padding-top: 30px */
+    /* float: right; */
+    width: fit-content;
+    /* margin-left: 30px; */
+}
+.edit-button-in-view{
+    display: flex;
+    /* font-size: large; */
+    width: 150px;
+    height: 39px;
+    background-color: aqua;
+    align-items: center;
+    justify-content: left;
+
+    border-radius: 30px;
+    border-style: none;
+    background-color: rgba(234, 249, 255, 1);
+    text-align: center;
+    margin-right: 30px;
+    /* align-items: center; */
+}
+.edit-icon-in-view{
+    background-color: rgba(3, 174, 238, 1);
+    color: white;
+    border-radius: 50%;
+    height: 100%;
+    width: 30%;
+    font-size: large;
+    padding: 3%;
+    margin-right: 10%;
+    /* margin-left: 0; */
+    /* object-fit: contain; */
+}

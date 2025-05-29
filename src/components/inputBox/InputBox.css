@@ -1,5 +1,5 @@
 .textinput{
-    width:75%;
+    width:100%;
     height: 50px;
     border-color: #B4B7BD;
     border-width: 1px;
@@ -9,7 +9,7 @@
     border-radius: 5px;
 }
 .username{
-    width:75%;
+    width:100%;
     height: 50px;
     border-style:solid;
     border-color: #B4B7BD;
@@ -18,8 +18,16 @@
     padding-left: 10px;
     border-radius: 5px;
 }
+.custom-input{
+    /* height: 100%; */
+    width: 50vh;
+}
+/* .clear{
+position:absolute;
+right: 0;
+} */
 .line_1,.line_2{
-    /* width:33%; */
+    width:100%;
     height: 40px;
     border-style:solid;
     border-width: 2px;
@@ -37,6 +45,12 @@
 .line_2{
     margin-bottom: 0;
 }
+.subscript-username{
+    text-align: left;
+}
+/* .password-checkbox{
+    width: fit-content;
+} */
 /* .line_2{
     width:30%;
     height: 40px;

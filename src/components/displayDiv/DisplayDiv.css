@@ -1,0 +1,21 @@
+.emp-data-holder{
+    display: flex;
+    flex-direction: column;
+    /* border-style: solid;
+    border-color: black; */
+    width:20%;
+    gap:2px;
+    
+}
+.emp-data-key{
+    color: rgba(139, 141, 157, 1);
+    font-weight: 700;
+    font-size: 16px;
+    overflow-wrap: break-word;
+}
+.emp-data-value{
+    color: rgba(67, 69, 82, 1);
+    font-weight: 700;
+    font-size: 16px;
+    overflow-wrap: break-word;
+}

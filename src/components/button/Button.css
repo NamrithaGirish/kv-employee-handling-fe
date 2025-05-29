@@ -19,7 +19,7 @@
     background-color: #00aaf4;
     color: white;
     height: 45px;
-    width:75%;
+    width:100%;
     font-size: medium;
     font-weight:bold;
     border-style: none;
@@ -47,4 +47,23 @@
     color: #8A8C8F;
     border-style: solid;
     border-color: #8A8C8F;
+}
+
+.logout{
+    background-color: #00aaf4;
+    width:100%;
+    height: 100%;
+    border-style: none;
+    color: white;
+    text-align: left;
+    font-weight: 400;
+}
+.popup-close{
+    background-color: transparent;
+    border-style: none;
+    font-size: large;
+    text-align: right;
+    padding-right: 5%;
+    padding-top: 5%;
+    width: 100%;
 }

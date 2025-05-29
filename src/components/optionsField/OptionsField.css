@@ -29,22 +29,25 @@
     /* background-blend-mode:normal; */
    
 }
-.form-options label{
+/* .form-options label{
     font-family: 'Courier New', Courier, monospace;
-}
+} */
 /* .status{
     height: 50px;
     width:33%;
     font-family: 'Courier New', Courier, monospace;
 } */
-.form-options select {
+.department,.role,.status{
     /* height: 45px; */
     height: 40px;
     border-color: #8B8D9D;
     /* border-width: 1px,1px,1px,1px; */
-    font-family: sans-serif;
+    /* font-family: sans-serif; */
     padding-left: 10px;
     border-radius: 5px;
+    background-color: #FAFAFA;
+    border-style: solid;
+    border-color: #D9D9D9;
     /* border-bottom:1px solid #ddd; */
 }
 /* .status,.role {
@@ -57,3 +60,4 @@
     border-radius: 5px;
     border-bottom:1px solid #ddd;
 } */
+

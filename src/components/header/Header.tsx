@@ -1,8 +1,12 @@
 import "./Header.css"
-export const Header = ({title}:{title:string})=>{
+export const Header = ({title,children}:{title:string,children?:React.ReactNode})=>{
     return (
-        <div className="header">
-            {title}
+        <div className="header-container">
+            <div className="header">
+                {title}
+            </div>
+            {children}
         </div>
+        
     )
 }
