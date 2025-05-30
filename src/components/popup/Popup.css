@@ -17,3 +17,10 @@
 .popup-button-holder{
     margin-left: 5px;
 }
+
+.popup-overlay {
+  background: rgba(0, 0, 0, 0.1);
+}
+/* [data-popup='tooltip'].popup-overlay {
+  background: transparent;
+} */

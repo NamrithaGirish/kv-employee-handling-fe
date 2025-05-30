@@ -1,24 +1,30 @@
-import { useNavigate, useParams, useSearchParams } from "react-router-dom"
-import { MainContent } from "../../components/mainContent/MainContent"
-import { Sidebar } from "../../components/sidebar/Sidebar"
+import { useNavigate, useSearchParams } from "react-router-dom"
+// import { MainContent } from "../../components/mainContent/MainContent"
+// import { Sidebar } from "../../components/sidebar/Sidebar"
 import "./DisplayAllEmployees.css"
 import { Header } from "../../components/header/Header"
-import { InputBox } from "../../components/inputBox/InputBox"
+// import { InputBox } from "../../components/inputBox/InputBox"
 import { OptionsField } from "../../components/optionsField/OptionsField"
-import { Button } from "../../components/button/Button"
-import { DisplayCard } from "../../components/displayCard/DisplayCard"
-import React, { useEffect, useState } from "react";
+// import { Button } from "../../components/button/Button"
+// import { DisplayCard } from "../../components/displayCard/DisplayCard"
+import React, { Suspense, useEffect, useState } from "react";
 // import { MdOutlineModeEdit } from "react-icons/md"
 import { IoMdAdd } from "react-icons/io";
+import { lazy } from "react"
+import { OrbitProgress } from "react-loading-indicators";
+import { LoadingScreen } from "../../components/loading/Loading";
 
+// const LazyDisplayCard = lazy(()=>import('../../components/displayCard/DisplayCard')
+//     .then(({ DisplayCard }) => ({ default: DisplayCard })),
+// );
+const LazyDisplayCard = lazy(()=>import("../../components/displayCard/DisplayCard"))
 
 export const DisplayAllEmployees=()=>{
-    // const {id,ud} = useParams();
     const [filterParams,setFilterParams] = useSearchParams();
     // const edit = queryParams.get("isEdit")==="true";
     // if (edit) return(
     //     <div> Inside edit</div>
-    // )
+    // )  
     const navigate = useNavigate();
     const setSearchParams =(status:string)=>{
         const urlparams = new URLSearchParams(filterParams)
@@ -295,7 +301,12 @@ export const DisplayAllEmployees=()=>{
                 <Button text="GET" classname="param-get" functionName={()=>console.log(searchParams.get("status"))}/> */}
                 
             </div>
-            <DisplayCard title={title} data={filteredData} />
+            <Suspense fallback={<LoadingScreen />}>
+                <LazyDisplayCard title={title} data={filteredData} />
+
+            </Suspense>
+
+            
 
            
                 {/* <div className="employee-details">

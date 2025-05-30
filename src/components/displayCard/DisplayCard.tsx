@@ -1,6 +1,5 @@
-import { Button } from "../button/Button";
-import icon from "../../assets/icon.svg";
-import { format } from "date-fns";
+
+// import { format } from "date-fns";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { FaRegTrashCan } from "react-icons/fa6";
 
@@ -22,7 +21,7 @@ interface display {
   }[];
   // statusFilter:string
 }
-export const DisplayCard = ({ title, data }: display) => {
+const DisplayCard = ({ title, data }: display) => {
   const navigate = useNavigate();
   const navigateToEdit = (e:React.MouseEvent<HTMLButtonElement>,id: number) => {
     e.stopPropagation()
@@ -81,6 +80,7 @@ export const DisplayCard = ({ title, data }: display) => {
                   <Popup
                    open={open}
                     modal
+                    lockScroll
                   >
                         <PopupComponent
                           heading="Are you sure?"
@@ -113,3 +113,4 @@ export const DisplayCard = ({ title, data }: display) => {
     </div>
   );
 };
+export default DisplayCard;
