@@ -284,11 +284,12 @@ export const DisplayAllEmployees = () => {
 
 	const filterData = (status: string | null) => {
 		if (status) {
-			let newData = data1.filter((employee) => {
-				employee.status === status;
-			});
+			let newData = data1.filter((employee) => employee.status == status);
+			console.log("new Date : ", newData);
 			setFilteredData(newData);
 		} else {
+			console.log("else new Date : ", data1);
+
 			setFilteredData(data1);
 		}
 	};
@@ -307,10 +308,6 @@ export const DisplayAllEmployees = () => {
 							onChange={(
 								e: React.ChangeEvent<HTMLSelectElement>
 							) => {
-								console.log(
-									"Type of  ; ",
-									typeof e.target.value
-								);
 								setSearchParams(e.target.value);
 							}}
 						/>
