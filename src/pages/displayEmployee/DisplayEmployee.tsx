@@ -11,6 +11,10 @@ import type {
 	EmployeeState,
 } from "../../store/employee/employee.types";
 import { getDetailsOfEmployee } from "../../utils/EmployeeFunctions";
+import {
+	useGetEmployeeListQuery,
+	useGetEmployeeQuery,
+} from "../../api-service/employees/employees.api";
 function camelCaseToNormal(camelCaseString: string) {
 	const result = camelCaseString.replace(/([A-Z])/g, " $1");
 	return result.charAt(0).toUpperCase() + result.slice(1);
@@ -30,9 +34,10 @@ const formatAddress = (address: Address) => {
 export const DisplayEmployee = () => {
 	const { id } = useParams();
 
-	const data = getDetailsOfEmployee(id);
+	// const data = getDetailsOfEmployee(id);
+	const { data } = useGetEmployeeQuery({ id: Number(id) });
 	const navigate = useNavigate();
-	const navigateToEdit = (id: number | string) => {
+	const navigateToEdit = (id: number) => {
 		navigate(`/employee/edit/${id}`);
 	};
 
@@ -43,7 +48,7 @@ export const DisplayEmployee = () => {
 					<div className="edit-option">
 						<button
 							className="edit-button-in-view"
-							onClick={() => navigateToEdit(data.employeeId)}
+							onClick={() => navigateToEdit(data.id)}
 						>
 							<MdOutlineModeEdit className="edit-icon-in-view" />
 							Edit

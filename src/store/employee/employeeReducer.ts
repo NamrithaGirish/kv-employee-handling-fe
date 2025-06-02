@@ -1,11 +1,13 @@
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import {
 	EMPLOYEE_ACTION_TYPES,
+	type Employee,
 	type EmployeeAction,
 	type EmployeeActionTypes,
 	type EmployeeState,
 } from "./employee.types";
 
-const initialState = { employees: [] };
+const initialState: { employees: Employee[] } = { employees: [] };
 export const employeeReducer = (
 	state: EmployeeState = initialState,
 	action: EmployeeAction
@@ -40,3 +42,21 @@ export const employeeReducer = (
 			return state;
 	}
 };
+
+export const employeeSlice = createSlice({
+	name: "employee",
+	initialState,
+	reducers: {
+		addEmployee: (state, action: PayloadAction<Employee>) => {
+			state.employees.push(action.payload);
+		},
+		deleteEmployee: (state, action: PayloadAction<string>) => {
+			state.employees = state.employees.filter(
+				(employee) => employee.employeeId !== action.payload
+			);
+			// return newList;
+		},
+	},
+});
+export const { addEmployee, deleteEmployee } = employeeSlice.actions;
+export default employeeSlice.reducer;

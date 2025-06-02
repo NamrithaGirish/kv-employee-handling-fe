@@ -12,14 +12,17 @@ import React, { Suspense, useEffect, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { lazy } from "react";
 import { LoadingScreen } from "../../components/loading/Loading";
-import store from "../../store/store";
+import store, { useAppSelector } from "../../store/store";
 import { useSelector } from "react-redux";
 import { type RootState } from "../../store/store";
 import {
 	EmployeeRole,
 	EmployeeStatus,
+	type Employee,
 	type EmployeeState,
 } from "../../store/employee/employee.types";
+import { useGetEmployeeListQuery } from "../../api-service/employees/employees.api";
+import { useGetDepartmentListQuery } from "../../api-service/department/department.api";
 
 // const LazyDisplayCard = lazy(()=>import('../../components/displayCard/DisplayCard')
 //     .then(({ DisplayCard }) => ({ default: DisplayCard })),
@@ -29,6 +32,9 @@ const LazyDisplayCard = lazy(
 );
 
 export const DisplayAllEmployees = () => {
+	// const data1:Employee[]=[];
+	const { data: data1 } = useGetEmployeeListQuery();
+	
 	const [filterParams, setFilterParams] = useSearchParams();
 	// const edit = queryParams.get("isEdit")==="true";
 	// if (edit) return(
@@ -267,15 +273,18 @@ export const DisplayAllEmployees = () => {
 	//         "dept": null
 	//     }
 	// ]
-	const data1 = useSelector((state: EmployeeState) => state.employees);
+
+	// const data1: Employee[] = useAppSelector(
+	// 	(state) => state.employee.employees
+	// );
 	console.log("Data1 :", data1);
 
 	const [filteredData, setFilteredData] = useState(data1);
-	// useEffect(() => {
-	// 	setFilteredData(data1);
-	// 	// navigate("")
-	// 	console.log("Data1 changed");
-	// }, [data1]);
+	useEffect(() => {
+		setFilteredData(data1);
+		// navigate("")
+		console.log("Data1 changed");
+	}, [data1]);
 
 	useEffect(() => {
 		console.log(filterParams.get("status"));
@@ -284,7 +293,10 @@ export const DisplayAllEmployees = () => {
 
 	const filterData = (status: string | null) => {
 		if (status) {
-			let newData = data1.filter((employee) => employee.status == status);
+			console.log("data1 from store : ", data1);
+			let newData = data1?.filter(
+				(employee) => employee.status == status
+			);
 			console.log("new Date : ", newData);
 			setFilteredData(newData);
 		} else {
@@ -325,7 +337,7 @@ export const DisplayAllEmployees = () => {
 			</div>
 
 			<Suspense fallback={<LoadingScreen />}>
-				<LazyDisplayCard title={title} data={filteredData} />
+				<LazyDisplayCard title={title} data={filteredData || []} />
 			</Suspense>
 		</>
 	);

@@ -7,13 +7,20 @@ import {
 	type Address,
 	type Employee,
 } from "../../store/employee/employee.types";
-import store from "../../store/store";
+import store, { useAppDispatch } from "../../store/store";
 import { departments, tempEmployee } from "../../utils/DataFormatter";
 import { Button } from "../button/Button";
 import { InputBox } from "../inputBox/InputBox";
 import { InputCombination } from "../inputCombination/InputCombination";
 import { OptionsField } from "../optionsField/OptionsField";
 import { useEffect, useState } from "react";
+import { addEmployee } from "../../store/employee/employeeReducer";
+import { useDispatch } from "react-redux";
+import {
+	useCreateEmployeeMutation,
+	useUpdateEmployeeMutation,
+} from "../../api-service/employees/employees.api";
+import { useGetDepartmentListQuery } from "../../api-service/department/department.api";
 
 interface FormParams {
 	type: string;
@@ -21,10 +28,16 @@ interface FormParams {
 }
 
 export const EmployeeDetailsForm = ({ type, data }: FormParams) => {
+	const { data: deptList } = useGetDepartmentListQuery();
+	console.log("departments :", deptList);
+	const dispatch = useAppDispatch();
+	// const  = use();
 	const navigate = useNavigate();
+	const [edit] = useUpdateEmployeeMutation();
+	const [create] = useCreateEmployeeMutation();
 	const statusList: string[] = Object.keys(EmployeeStatus);
 	const roleList: string[] = Object.keys(EmployeeRole);
-	const deptList: string[] = departments;
+	// const deptList: string[] = departments;
 	const checkIsEdit = () => {
 		return type == "edit";
 	};
@@ -37,36 +50,46 @@ export const EmployeeDetailsForm = ({ type, data }: FormParams) => {
 		const formatedDate = new Date(date ? date : "");
 		return `${formatedDate.getFullYear()}-0${formatedDate.getMonth()}-${formatedDate.getDate()}`;
 	};
-	const createEmployee = () => {
+	const createEmployee = async () => {
 		console.log("final state", employeeValues);
-		store.dispatch({
-			type: EMPLOYEE_ACTION_TYPES.CREATE,
-			payload: employeeValues,
-		});
-		navigate(`/employee/${employeeValues.employeeId}`);
+		const data1 = await create(employeeValues);
+		console.log("after creating data : ", data1.data);
+		// dispatch(addEmployee(employeeValues));
+
+		// useDispatch(addEmployee);
+		navigate(`/employee/${data1.data?.id}`);
 	};
-	const editEmployee = () => {
-		console.log("final state", employeeValues);
-		store.dispatch({
-			type: EMPLOYEE_ACTION_TYPES.UPDATE,
-			payload: employeeValues,
-		});
-		navigate(`/employee/${employeeValues.employeeId}`);
+	const editEmployee = async () => {
+		// const { data: data1 } = useUpdateEmployeeQuery();
+		const data1 = await edit(employeeValues);
+		console.log(data1);
+		// console.log("final state", employeeValues);
+		// store.dispatch({
+		// 	type: EMPLOYEE_ACTION_TYPES.UPDATE,
+		// 	payload: employeeValues,
+		// });
+		navigate(`/employee/${employeeValues.id}`);
 	};
 	const updateEmployeeData = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
 		field: string,
-		subfield?: string
+		subfield?: string,
+		isNumber?: boolean
 	) => {
 		subfield
 			? setEmployeeValues({
 					...employeeValues,
 					[field]: {
 						...employeeValues.address,
-						[subfield]: e.target.value,
+						[subfield]: isNumber
+							? Number(e.target.value)
+							: e.target.value,
 					},
 			  })
-			: setEmployeeValues({ ...employeeValues, [field]: e.target.value });
+			: setEmployeeValues({
+					...employeeValues,
+					[field]: isNumber ? Number(e.target.value) : e.target.value,
+			  });
 	};
 	useEffect(() => {
 		console.log(employeeValues);
@@ -98,7 +121,7 @@ export const EmployeeDetailsForm = ({ type, data }: FormParams) => {
 				type="number"
 				value={checkIsEdit() ? data?.age.toString() : ""}
 				onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-					updateEmployeeData(e, "age");
+					updateEmployeeData(e, "age", "", true);
 				}}
 			/>
 
@@ -142,16 +165,17 @@ export const EmployeeDetailsForm = ({ type, data }: FormParams) => {
 			<OptionsField
 				label="Department"
 				classname="department"
-				options={deptList}
+				options={deptList ? deptList : []}
 				value={
-					checkIsEdit()
-						? data?.dept !== null
-							? data?.dept
-							: ""
-						: "Department"
+					// checkIsEdit()
+					// 	? data?.deptId !== null
+					// 		? data?.deptId
+					// 		: ""
+					// 	: "Department"
+					checkIsEdit() ? data?.dept?.id : "Department"
 				}
 				onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-					updateEmployeeData(e, "dept");
+					updateEmployeeData(e, "deptId", "", true);
 				}}
 			/>
 			<InputCombination
@@ -160,7 +184,7 @@ export const EmployeeDetailsForm = ({ type, data }: FormParams) => {
 				type="number"
 				value={checkIsEdit() ? data?.experience.toString() : ""}
 				onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-					updateEmployeeData(e, "experience");
+					updateEmployeeData(e, "experience", "", true);
 				}}
 			/>
 
@@ -184,9 +208,11 @@ export const EmployeeDetailsForm = ({ type, data }: FormParams) => {
 				<InputBox
 					classname="line_2"
 					text="Pincode"
-					defaultValue={checkIsEdit() ? data?.address.line1 : ""}
+					defaultValue={
+						checkIsEdit() ? data?.address.pincode.toString() : ""
+					}
 					onchange={(e: React.ChangeEvent<HTMLInputElement>) => {
-						updateEmployeeData(e, "address", "pincode");
+						updateEmployeeData(e, "address", "pincode", true);
 					}}
 				/>
 			</div>

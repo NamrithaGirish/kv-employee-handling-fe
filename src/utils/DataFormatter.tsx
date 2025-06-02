@@ -1,4 +1,8 @@
-import type { Address, Employee } from "../store/employee/employee.types";
+import {
+	EmployeeRole,
+	type Address,
+	type Employee,
+} from "../store/employee/employee.types";
 
 export const data = [
 	{
@@ -235,6 +239,7 @@ export const tempAddress: Address = {
 };
 
 export const tempEmployee: Employee = {
+	id: 0,
 	email: "",
 	age: 0,
 	name: "",
@@ -245,7 +250,7 @@ export const tempEmployee: Employee = {
 	status: "",
 	employeeId: "",
 	address: tempAddress,
-	dept: null,
+	deptId: null,
 };
 
 export const departments: string[] = ["HR", "DEVELOPER", "TESTER"];

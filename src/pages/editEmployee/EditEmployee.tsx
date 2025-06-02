@@ -12,6 +12,7 @@ import { Sidebar } from "../../components/sidebar/Sidebar";
 import "./EditEmployee.css";
 import store from "../../store/store";
 import { getDetailsOfEmployee } from "../../utils/EmployeeFunctions";
+import { useGetEmployeeQuery } from "../../api-service/employees/employees.api";
 
 export const EditEmployee = () => {
 	const { id } = useParams();
@@ -42,7 +43,8 @@ export const EditEmployee = () => {
 	//     "dept": null
 	// }
 
-	const data = getDetailsOfEmployee(id);
+	const { data } = useGetEmployeeQuery({ id: Number(id) });
+	console.log(data);
 	return (
 		<>
 			<Header title="Edit Employee" />

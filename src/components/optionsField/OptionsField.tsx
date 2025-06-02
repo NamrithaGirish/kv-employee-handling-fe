@@ -1,8 +1,9 @@
 import type React from "react";
 import "./OptionsField.css";
+import type { Department } from "../../api-service/department/types";
 interface SelectFieldParams {
 	label: string;
-	options: string[];
+	options: string[] | Department[];
 	classname: string;
 	noDisabledField?: boolean;
 	onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
@@ -25,12 +26,20 @@ export const OptionsField = ({
 				defaultValue={value}
 			>
 				{!noDisabledField && (
-					<option disabled selected>
+					<option value={label} disabled>
 						{label}
 					</option>
 				)}
 				{options.map((option) => {
-					return <option>{option}</option>;
+					return (
+						<option
+							value={
+								typeof option === "string" ? option : option.id
+							}
+						>
+							{typeof option === "string" ? option : option.name}
+						</option>
+					);
 				})}
 			</select>
 		</div>

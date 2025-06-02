@@ -6,6 +6,8 @@
  * - State interface for the employee slice
  */
 
+import type { Department } from "../../api-service/department/types";
+
 export interface Address {
 	houseNo: string;
 	line1: string;
@@ -31,6 +33,7 @@ export const EmployeeStatus = {
 export type Status = (typeof EmployeeStatus)[keyof typeof EmployeeStatus];
 
 export interface Employee {
+	id: number;
 	employeeId: string;
 	email: string;
 	name: string;
@@ -41,7 +44,8 @@ export interface Employee {
 	joiningDate: Date;
 	experience: number;
 	status: string;
-	dept: number | string | null;
+	deptId: number | null;
+	dept?: Department;
 }
 
 export const EMPLOYEE_ACTION_TYPES = {
