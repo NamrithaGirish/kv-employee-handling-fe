@@ -30,6 +30,7 @@ export const InputBox = ({
 }: InputBoxParams) => {
 	return (
 		<div className="input-box">
+			{/* <label htmlFor={text}>{text}</label> */}
 			<input
 				type={inputType || "text"}
 				placeholder={text}
@@ -37,15 +38,16 @@ export const InputBox = ({
 				onChange={onchange}
 				ref={reference}
 				value={value}
-				name={name}
+				name={text}
 				checked={checked}
 				defaultValue={defaultValue}
+				id={text}
 			/>
 			{/* <label>{text}</label> */}
 			{endAdornment}
 			{/* <span>{text}</span> */}
 			{substring && (
-				<div className={`subscript-${classname}`}>{substring}</div>
+				<label className={`subscript-${classname}`}>{substring}</label>
 			)}
 		</div>
 	);

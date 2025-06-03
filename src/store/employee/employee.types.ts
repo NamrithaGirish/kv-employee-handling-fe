@@ -25,7 +25,7 @@ export const EmployeeRole = {
 export type Role = (typeof EmployeeRole)[keyof typeof EmployeeRole];
 
 export const EmployeeStatus = {
-	ACTIVE: "ACTIVE",
+	ACTIIVE: "ACTIIVE",
 	INACTIVE: "INACTIVE",
 	PROBATION: "PROBATION",
 } as const;

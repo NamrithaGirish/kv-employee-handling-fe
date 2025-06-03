@@ -1,4 +1,4 @@
-import React, { use, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../../components/button/Button";
 import { InputBox } from "../../components/inputBox/InputBox";
 import "./Login.css";
@@ -8,10 +8,10 @@ const print = () => {
 };
 // import { MouseTracker } from "../../hooks/MouseTrackingHook";
 import { SetLocalStorage } from "../../hooks/LocalStorage";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../api-service/auth/login.api";
 export const Login = () => {
-	const [login, {isLoading}] = useLoginMutation();
+	const [login, { isLoading }] = useLoginMutation();
 	// const mouseTrack = MouseTracker();
 	const [username, setUsername] = useState("");
 	let [password, setPassword] = useState("");
@@ -39,9 +39,10 @@ export const Login = () => {
 				navigate("/employee");
 			})
 			.catch((error) => {
-				console.log(error.data.error);
+				const errMsg = error.data.error || error.data.message;
+				console.log(error);
 				authlocalStorageHook.setter(false);
-				setValue(error.data.error);
+				setValue(errMsg);
 			});
 		// try {
 		// 	if (response.data) {
@@ -84,6 +85,15 @@ export const Login = () => {
 		if (username.length > 0) {
 			setclearButtonDisable(false);
 			// value=
+		}
+		if (username.length > 10) {
+			console.log("Value :", value);
+			setValue("Username invalid");
+			console.log("Value :", value);
+
+			// value=
+		} else {
+			setValue("");
 		}
 
 		// return()=>{
@@ -152,6 +162,7 @@ export const Login = () => {
 								}
 							/>
 						</div>
+						{/* <label>{value}</label> */}
 						{/* <p>
                                x= {mouseTrack.x} y={mouseTrack.y}
                             </p> */}

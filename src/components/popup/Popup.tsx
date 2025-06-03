@@ -1,4 +1,4 @@
-import Popup from "reactjs-popup";
+
 import "./Popup.css";
 import { Button } from "../button/Button";
 

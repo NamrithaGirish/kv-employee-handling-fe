@@ -1,84 +1,81 @@
-.row{
-    display: flex;
-    height: 100vh; 
+.row {
+	display: flex;
+	height: 100vh;
 }
-.column1{
-    display: flex; 
-    background-color: rgba(3, 174, 238, 0.1);
-    width:50%;
-    justify-content: center;
-    align-items: center;  
-    margin: 20px;
-    border-radius: 10px;
+.column1 {
+	display: flex;
+	background-color: rgba(3, 174, 238, 0.1);
+	width: 50%;
+	justify-content: center;
+	align-items: center;
+	margin: 20px;
+	border-radius: 10px;
 }
-.login_image{
-    object-fit: cover;
-    border-radius: 50%;
-    width:80%;
-    height:80%; 
-    /* padding: 10px; */
-    /* margin: 10px; */
+.login_image {
+	object-fit: cover;
+	border-radius: 50%;
+	width: 80%;
+	height: 80%;
+	/* padding: 10px; */
+	/* margin: 10px; */
 }
-.username-clear-holder{
-    width:100%;
-    /* justify-content: center; */
-    position: relative;
-    display: inline-block;
+.username-clear-holder {
+	width: 100%;
+	/* justify-content: center; */
+	position: relative;
+	display: inline-block;
 }
-.login-box{
-    width:100%;
-    /* display: inline; */
+.login-box {
+	width: 100%;
+	/* display: inline; */
 }
-.clear{
-    position: absolute;
-    top:0;
-    right: 0;
-    background-color: #00aaf4;
-    border-style: solid;
-    border-color: #B4B7BD;
-    height: 50px;
-    width: 20%;
-    color: white; 
-    font-weight: 40;
-    border-width: 1px;
-    border-radius: 5px;
-    
-    
+.clear {
+	position: absolute;
+	top: 0;
+	right: 0;
+	background-color: #00aaf4;
+	border-style: solid;
+	border-color: #b4b7bd;
+	height: 50px;
+	width: 20%;
+	color: white;
+	font-weight: 40;
+	border-width: 1px;
+	border-radius: 5px;
 }
 .column2 {
-    background-color: white;
-    width: 50%;
-    height: 100%;
-    display: flex;
-    justify-content: center; /*alligns centre along h*/
-    align-items: center;  /*alligns centre along v */
+	background-color: white;
+	width: 50%;
+	height: 100%;
+	display: flex;
+	justify-content: center; /*alligns centre along h*/
+	align-items: center; /*alligns centre along v */
 }
 
-.column2 img{
-    width:30%;
-    margin-bottom: 20px;
-    margin-left: 24%;
-    background-color: white;
+.column2 img {
+	width: 30%;
+	margin-bottom: 20px;
+	margin-left: 24%;
+	background-color: white;
 }
 
-.form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap:15px;
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
+.form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 15px;
+	width: 50%;
+	margin-left: auto;
+	margin-right: auto;
 }
-.show-password{
-    display: flex;
-    flex-direction: row;
-    margin-right: auto;
-    margin-left: 0;
-    /* justify-content: left;
+.show-password {
+	display: flex;
+	flex-direction: row;
+	margin-right: auto;
+	margin-left: 0;
+	/* justify-content: left;
     align-items:left; */
-    /* width:100% */
-    gap:5px;
+	/* width:100% */
+	gap: 5px;
 }
-

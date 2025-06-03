@@ -11,11 +11,9 @@ import type {
 	Employee,
 	EmployeeState,
 } from "../../store/employee/employee.types";
-import store, { useAppDispatch } from "../../store/store";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteEmployee } from "../../store/employee/employeeReducer";
+// import { deleteEmployee } from "../../store/employee/employeeReducer";
 import { useDeleteEmployeeListMutation } from "../../api-service/employees/employees.api";
-import { useGetDepartmentListQuery } from "../../api-service/department/department.api";
+// import { useGetDepartmentListQuery } from "../../api-service/department/department.api";
 interface display {
 	title: string[];
 	data: Employee[];
@@ -26,7 +24,7 @@ const DisplayCard = ({ title, data }: display) => {
 
 	// console.log(employee)
 	const navigate = useNavigate();
-	const dispatch = useAppDispatch();
+	// const dispatch = useAppDispatch();
 	const navigateToEdit = (
 		e: React.MouseEvent<HTMLButtonElement>,
 		id: number
@@ -34,7 +32,7 @@ const DisplayCard = ({ title, data }: display) => {
 		e.stopPropagation();
 		navigate(`/employee/edit/${id}`);
 	};
-	const data1 = useSelector((state: EmployeeState) => state.employees);
+	// const data1 = useSelector((state: EmployeeState) => state.employees);
 	const [open, setOpen] = useState(false);
 	const [activePopupId, setActivePopupId] = useState<number | null>(null);
 
@@ -106,11 +104,11 @@ const DisplayCard = ({ title, data }: display) => {
 										modal
 										lockScroll
 									>
-										<p>{content.id}</p>
+										{/* <p>{content.id}</p> */}
 										<PopupComponent
 											id={content.id}
 											heading="Are you sure?"
-											text={`Do you want to delete the Employee ${content.id} ?`}
+											text={`Do you want to delete the Employee ${content.employeeId} ?`}
 											yesFnCall={() => {
 												console.log(
 													"id to deleteeeeeeeeeee :",

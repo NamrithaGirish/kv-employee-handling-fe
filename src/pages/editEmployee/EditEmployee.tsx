@@ -1,7 +1,7 @@
 // import { Content } from "../../components/content/Content"
 import { useParams } from "react-router-dom";
 import { Button } from "../../components/button/Button";
-import { EmployeeDetailsForm } from "../../components/employeeDetailsForm/EmployeeDetailsForm";
+import EmployeeDetailsForm from "../../components/employeeDetailsForm/EmployeeDetailsForm";
 import { Header } from "../../components/header/Header";
 import { InputBox } from "../../components/inputBox/InputBox";
 import { InputCombination } from "../../components/inputCombination/InputCombination";
@@ -13,7 +13,10 @@ import "./EditEmployee.css";
 import store from "../../store/store";
 import { getDetailsOfEmployee } from "../../utils/EmployeeFunctions";
 import { useGetEmployeeQuery } from "../../api-service/employees/employees.api";
-
+import { lazy } from "react";
+// const LazyEmployeeDetailsForm = lazy(
+// 	() => import("../../components/employeeDetailsForm/EmployeeDetailsForm")
+// );
 export const EditEmployee = () => {
 	const { id } = useParams();
 	//     const data = {
@@ -48,7 +51,7 @@ export const EditEmployee = () => {
 	return (
 		<>
 			<Header title="Edit Employee" />
-			<EmployeeDetailsForm type="edit" data={data} />
+			<EmployeeDetailsForm type="edit" id={Number(id)} />
 		</>
 	);
 };

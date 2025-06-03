@@ -2,23 +2,21 @@
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 import './App.css'
-import { Sidebar } from './components/sidebar/Sidebar'
 import { CreateEmployee } from './pages/createEmployee/CreateEmployee'
 import { DisplayEmployee } from './pages/displayEmployee/DisplayEmployee'
 // import { EditEmployee } from './pages/editEmployee/EditEmployee'
 // import { Header } from './components/header/Header'
 import { Login } from './pages/login/Login'
-import { UncontrolledLogin } from './pages/login/UncontrolledLogin'
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom'
 import NotFound from './pages/notFound/NotFound'
 import { Layout } from './components/layout/Layout'
 import { EditEmployee } from './pages/editEmployee/EditEmployee'
 import { DisplayAllEmployees } from './pages/displayAllEmployees/DisplayAllEmployees'
-const isLoggedIn= ()=>{
-  const authenticated = localStorage.getItem("isLoggedIn");
-  console.log(authenticated);
-  return "true"===authenticated;
-}
+// const isLoggedIn= ()=>{
+//   const authenticated = localStorage.getItem("isLoggedIn");
+//   console.log(authenticated);
+//   return "true"===authenticated;
+// }
 const routes = createBrowserRouter([
   {
     path:"/",

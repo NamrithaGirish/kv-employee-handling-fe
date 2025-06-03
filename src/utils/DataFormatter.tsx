@@ -144,7 +144,7 @@ export const data = [
 		role: "DEVELOPER",
 		joiningDate: "2025-05-23T14:00:00.000Z",
 		experience: 6,
-		status: "ACTIVE",
+		status: "ACTIIVE",
 		employeeId: "E458",
 		address: {
 			id: 55,
@@ -177,7 +177,7 @@ export const data = [
 		role: "DEVELOPER",
 		joiningDate: "2025-05-23T14:00:00.000Z",
 		experience: 0,
-		status: "ACTIVE",
+		status: "ACTIIVE",
 		employeeId: "E83",
 		address: {
 			id: 50,
@@ -204,7 +204,7 @@ export const data = [
 		role: "DEVELOPER",
 		joiningDate: "2025-05-23T14:00:00.000Z",
 		experience: 0,
-		status: "ACTIVE",
+		status: "ACTIIVE",
 		employeeId: "E93",
 		address: {
 			id: 51,

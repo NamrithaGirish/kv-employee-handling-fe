@@ -1,23 +1,20 @@
 // import { format } from "date-fns"
 import { useNavigate } from "react-router-dom";
 import {
-	EMPLOYEE_ACTION_TYPES,
 	EmployeeRole,
 	EmployeeStatus,
-	type Address,
 	type Employee,
 } from "../../store/employee/employee.types";
-import store, { useAppDispatch } from "../../store/store";
-import { departments, tempEmployee } from "../../utils/DataFormatter";
+import { useAppDispatch } from "../../store/store";
+import { tempEmployee } from "../../utils/DataFormatter";
 import { Button } from "../button/Button";
 import { InputBox } from "../inputBox/InputBox";
 import { InputCombination } from "../inputCombination/InputCombination";
 import { OptionsField } from "../optionsField/OptionsField";
 import { useEffect, useState } from "react";
-import { addEmployee } from "../../store/employee/employeeReducer";
-import { useDispatch } from "react-redux";
 import {
 	useCreateEmployeeMutation,
+	useGetEmployeeQuery,
 	useUpdateEmployeeMutation,
 } from "../../api-service/employees/employees.api";
 import { useGetDepartmentListQuery } from "../../api-service/department/department.api";
@@ -25,9 +22,29 @@ import { useGetDepartmentListQuery } from "../../api-service/department/departme
 interface FormParams {
 	type: string;
 	data?: Employee;
+	id?: number;
 }
 
-export const EmployeeDetailsForm = ({ type, data }: FormParams) => {
+const EmployeeDetailsForm = ({ type, id }: FormParams) => {
+	// const {data:data} = useGetEmployeeQuery
+	const [error, setError] = useState([]);
+	const { data: data } = useGetEmployeeQuery({ id: Number(id) });
+	const checkIsEdit = () => {
+		return type == "edit";
+	};
+	// if (checkIsEdit() && !data) return;
+	// useEffect(() => {
+	// 	console.log("inside useefect for data...............");
+	// 	checkIsEdit() && data
+	// 		? setEmployeeValues(data)
+	// 		: setEmployeeValues(tempEmployee);
+	// 	// checkIsEdit()?
+	// }, [data]);
+	const [employeeValues, setEmployeeValues] = useState(
+		data ? data : tempEmployee
+	);
+
+	console.log("Loading form with data : ", data);
 	const { data: deptList } = useGetDepartmentListQuery();
 	console.log("departments :", deptList);
 	const dispatch = useAppDispatch();
@@ -38,13 +55,10 @@ export const EmployeeDetailsForm = ({ type, data }: FormParams) => {
 	const statusList: string[] = Object.keys(EmployeeStatus);
 	const roleList: string[] = Object.keys(EmployeeRole);
 	// const deptList: string[] = departments;
-	const checkIsEdit = () => {
-		return type == "edit";
-	};
 
-	const [employeeValues, setEmployeeValues] = useState(
-		checkIsEdit() && data ? data : tempEmployee
-	);
+	useEffect(() => {
+		setError([]);
+	}, [employeeValues]);
 
 	const formatDate = (date: string | undefined | Date) => {
 		const formatedDate = new Date(date ? date : "");
@@ -52,23 +66,46 @@ export const EmployeeDetailsForm = ({ type, data }: FormParams) => {
 	};
 	const createEmployee = async () => {
 		console.log("final state", employeeValues);
-		const data1 = await create(employeeValues);
-		console.log("after creating data : ", data1.data);
-		// dispatch(addEmployee(employeeValues));
+		await create(employeeValues)
+			.unwrap()
+			.then((response) => {
+				console.log(response);
+				setError([]);
+				navigate(`/employee/${response.id}`);
+			})
+			.catch((error) => {
+				setError(JSON.parse(error.data.message));
+				console.log("Error for creation :", error.data.message);
+			});
+		// const data1 = await create(employeeValues);
+		// console.log("after creating data : ", data1.data);
 
-		// useDispatch(addEmployee);
-		navigate(`/employee/${data1.data?.id}`);
+		// // dispatch(addEmployee(employeeValues));
+
+		// // useDispatch(addEmployee);
+		// navigate(`/employee/${data1.data?.id}`);
+		// );
 	};
 	const editEmployee = async () => {
 		// const { data: data1 } = useUpdateEmployeeQuery();
-		const data1 = await edit(employeeValues);
-		console.log(data1);
+		await edit(employeeValues)
+			.unwrap()
+			.then((response) => {
+				console.log(response);
+				setError([]);
+				navigate(`/employee/${employeeValues.id}`);
+			})
+			.catch((error) => {
+				console.log("Edit error : ", error);
+				setError(error.data.error || error.data.message);
+			});
+		// console.log(data1);
 		// console.log("final state", employeeValues);
 		// store.dispatch({
 		// 	type: EMPLOYEE_ACTION_TYPES.UPDATE,
 		// 	payload: employeeValues,
 		// });
-		navigate(`/employee/${employeeValues.id}`);
+		// navigate(`/employee/${employeeValues.id}`);
 	};
 	const updateEmployeeData = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -129,7 +166,13 @@ export const EmployeeDetailsForm = ({ type, data }: FormParams) => {
 				name="joining_date"
 				placeholder="Joining Date"
 				type="date"
-				value={checkIsEdit() ? formatDate(data?.joiningDate) : ""}
+				value={
+					checkIsEdit()
+						? // ? formatDate(
+						  data?.joiningDate.toString().substring(0, 10)
+						: //   )
+						  ""
+				}
 				onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 					updateEmployeeData(e, "joiningDate");
 				}}
@@ -250,6 +293,13 @@ export const EmployeeDetailsForm = ({ type, data }: FormParams) => {
 					functionName={() => setEmployeeValues(tempEmployee)}
 				/>
 			</div>
+			<div>
+				{error.length > 0 &&
+					error.map((err) => {
+						return <p>{err}</p>;
+					})}
+			</div>
 		</div>
 	);
 };
+export default EmployeeDetailsForm;

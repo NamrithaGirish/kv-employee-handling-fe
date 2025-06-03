@@ -1,6 +1,6 @@
 import { Header } from "../../components/header/Header";
 import "./CreateEmployee.css";
-import { EmployeeDetailsForm } from "../../components/employeeDetailsForm/EmployeeDetailsForm";
+import EmployeeDetailsForm from "../../components/employeeDetailsForm/EmployeeDetailsForm";
 
 export const CreateEmployee = () => {
 	return (
