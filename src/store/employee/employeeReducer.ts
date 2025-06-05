@@ -3,10 +3,11 @@ import {
 	EMPLOYEE_ACTION_TYPES,
 	type Employee,
 	type EmployeeAction,
-	type EmployeeActionTypes,
 	type EmployeeState,
 } from "./employee.types";
 
+//USING REACT-REDUX FOR DEFNING ACTIONS
+//PASS payload and action FOR DISPATCH
 const initialState: { employees: Employee[] } = { employees: [] };
 export const employeeReducer = (
 	state: EmployeeState = initialState,
@@ -43,6 +44,8 @@ export const employeeReducer = (
 	}
 };
 
+//USING RTK
+//CALL THE REDUCER NAME AS A FUNCTION WITH ITS PARAMETERS
 export const employeeSlice = createSlice({
 	name: "employee",
 	initialState,

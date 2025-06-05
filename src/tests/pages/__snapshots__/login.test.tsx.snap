@@ -11,7 +11,7 @@ exports[`Login Page > should match snapshot 1`] = `
       <img
         alt="Login Image"
         class="login_image"
-        src="./src/assets/kv-login.jpeg"
+        src="/src/assets/kv-login.jpeg"
       />
     </div>
     <div
@@ -23,7 +23,7 @@ exports[`Login Page > should match snapshot 1`] = `
         <img
           alt="Keyvalue Logo"
           class="logo"
-          src="./src/assets/kv-logo.png"
+          src="/src/assets/kv-logo.png"
         />
         <div
           class="form"

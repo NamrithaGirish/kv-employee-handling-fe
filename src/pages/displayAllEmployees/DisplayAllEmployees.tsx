@@ -104,6 +104,7 @@ export const DisplayAllEmployees = () => {
 
 			<Suspense fallback={<LoadingScreen />}>
 				<LazyDisplayCard title={title} data={filteredData || []} />
+				{error && <p>Failed to load data</p>}
 			</Suspense>
 		</>
 	);

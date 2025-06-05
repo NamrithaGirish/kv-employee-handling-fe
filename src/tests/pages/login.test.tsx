@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { getByTestId, render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import userEvent from "@testing-library/user-event";
@@ -117,8 +117,8 @@ describe("Login Page", () => {
 		// Wait for the login mutation to resolve and navigation to occur
 		await waitFor(() => {
 			expect(mockLoginMutation).toHaveBeenCalled();
-			const element = screen.getAllByText("Invalid username or password");
-			expect(element).toHaveLength(2);
+			const element = screen.getByText("Invalid username or password");
+			expect(element).toBeInTheDocument();
 		});
 	});
 	it("focus on username on mount", () => {

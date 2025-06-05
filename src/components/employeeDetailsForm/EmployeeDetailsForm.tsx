@@ -39,7 +39,6 @@ const EmployeeDetailsForm = ({ type, id }: FormParams) => {
 
 	console.log("Loading form with data : ", data);
 	const { data: deptList } = useGetDepartmentListQuery();
-	console.log("departments :", deptList);
 	const navigate = useNavigate();
 	const [edit] = useUpdateEmployeeMutation();
 	const [create] = useCreateEmployeeMutation();

@@ -24,7 +24,7 @@ export const PopupComponent = ({
 					type={"button"}
 					text="X"
 					classname="popup-close"
-					functionName={noFnCall}
+					onClickFunction={noFnCall}
 				/>
 
 				<h1 className="popup-heading">{heading}</h1>
@@ -34,13 +34,13 @@ export const PopupComponent = ({
 						type="button"
 						text="Yes"
 						classname="create"
-						functionName={yesFnCall}
+						onClickFunction={yesFnCall}
 					/>
 					<Button
 						type="button"
 						text="No"
 						classname="cancel"
-						functionName={noFnCall}
+						onClickFunction={noFnCall}
 					/>
 				</div>
 			</div>
