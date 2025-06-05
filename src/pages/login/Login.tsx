@@ -45,7 +45,7 @@ export const Login = () => {
 				);
 				console.log("userId", userId.id);
 				localStorage.setItem("UserId", userId.id);
-				navigate(`/employee/${userId.id}`);
+				navigate(`/employee`);
 			})
 			.catch((error) => {
 				console.log(error);
