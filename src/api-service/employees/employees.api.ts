@@ -48,5 +48,5 @@ export const {
 	useDeleteEmployeeListMutation,
 	useGetEmployeeQuery,
 	useUpdateEmployeeMutation,
-	useCreateEmployeeMutation
+	useCreateEmployeeMutation,
 } = employeeApi;

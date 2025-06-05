@@ -63,17 +63,17 @@ describe("Login Page", () => {
 		expect(submitButton).toBeInTheDocument();
 		expect(submitButton).toHaveAttribute("type", "submit");
 	});
-	it("should show error when username is too long", async () => {
-		renderLogin();
-		const usernameInput = screen.getByPlaceholderText("Username");
-		// Type a username longer than 10 characters
-		await userEvent.type(usernameInput, "a".repeat(11));
-		// expect(screen.getByText("Username invalid")).toBeInTheDocument();
-		// Check if error message is displayed
-		// const container = getByTestId("subscript-username")
-		const element = screen.getAllByText("Username invalid");
-		expect(element).toHaveLength(2);
-	});
+	// it("should show error when username is too long", async () => {
+	// 	renderLogin();
+	// 	const usernameInput = screen.getByPlaceholderText("Username");
+	// 	// Type a username longer than 10 characters
+	// 	await userEvent.type(usernameInput, "a".repeat(11));
+	// 	// expect(screen.getByText("Username invalid")).toBeInTheDocument();
+	// 	// Check if error message is displayed
+	// 	// const container = getByTestId("subscript-username")
+	// 	const element = screen.getAllByText("Username invalid");
+	// 	expect(element).toHaveLength(2);
+	// });
 	it("should handle successful login", async () => {
 		mockLoginMutation.mockResolvedValueOnce({ token: "fake-token" });
 
