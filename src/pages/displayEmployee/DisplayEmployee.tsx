@@ -1,20 +1,11 @@
-import { useNavigate, useParams } from "react-router-dom";
-import "./DisplayEmployee.css";
-import { Header } from "../../components/header/Header";
-import { DisplayDiv } from "../../components/displayDiv/DisplayDiv";
 import { format } from "date-fns";
 import { MdOutlineModeEdit } from "react-icons/md";
-import store from "../../store/store";
-import { useSelector } from "react-redux";
-import type {
-	Address,
-	EmployeeState,
-} from "../../store/employee/employee.types";
-import { getDetailsOfEmployee } from "../../utils/EmployeeFunctions";
-import {
-	useGetEmployeeListQuery,
-	useGetEmployeeQuery,
-} from "../../api-service/employees/employees.api";
+import { useNavigate, useParams } from "react-router-dom";
+import { useGetEmployeeQuery } from "../../api-service/employees/employees.api";
+import { DisplayDiv } from "../../components/displayDiv/DisplayDiv";
+import { Header } from "../../components/header/Header";
+import type { Address } from "../../store/employee/employee.types";
+import "./DisplayEmployee.css";
 function camelCaseToNormal(camelCaseString: string) {
 	const result = camelCaseString.replace(/([A-Z])/g, " $1");
 	return result.charAt(0).toUpperCase() + result.slice(1);
@@ -63,7 +54,7 @@ export const DisplayEmployee = () => {
 					<DisplayDiv title="E-Mail" value={data.email} />
 					<DisplayDiv
 						title="Joining Date"
-						value={format(data.joiningDate, "dd-mm-yyyy")}
+						value={data.joiningDate.toString().substring(0, 10)}
 					/>
 					<DisplayDiv title="Age" value={data.age.toString()} />
 					<hr className="solid-line" />

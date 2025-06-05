@@ -28,7 +28,8 @@ interface FormParams {
 const EmployeeDetailsForm = ({ type, id }: FormParams) => {
 	// const {data:data} = useGetEmployeeQuery
 	const [error, setError] = useState([]);
-	const { data: data } = useGetEmployeeQuery({ id: Number(id) });
+	const { data } = useGetEmployeeQuery({ id: Number(id) });
+
 	const checkIsEdit = () => {
 		return type == "edit";
 	};
@@ -43,6 +44,9 @@ const EmployeeDetailsForm = ({ type, id }: FormParams) => {
 	const [employeeValues, setEmployeeValues] = useState(
 		data ? data : tempEmployee
 	);
+	// useEffect(() => {
+	// 	setEmployeeValues(data ? data : tempEmployee);
+	// }, [data]);
 
 	console.log("Loading form with data : ", data);
 	const { data: deptList } = useGetDepartmentListQuery();
@@ -74,8 +78,13 @@ const EmployeeDetailsForm = ({ type, id }: FormParams) => {
 				navigate(`/employee/${response.id}`);
 			})
 			.catch((error) => {
-				setError(JSON.parse(error.data.message));
-				console.log("Error for creation :", error.data.message);
+				console.log(error);
+
+				setError(error.data.error || JSON.parse(error.data.message));
+				console.log(
+					"Error for creation :",
+					error.data.message || error.data.error
+				);
 			});
 		// const data1 = await create(employeeValues);
 		// console.log("after creating data : ", data1.data);
@@ -129,7 +138,7 @@ const EmployeeDetailsForm = ({ type, id }: FormParams) => {
 			  });
 	};
 	useEffect(() => {
-		console.log(employeeValues);
+		console.log("Employeevalues : ", employeeValues);
 		// console.log(`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`)
 	}, [employeeValues]);
 	return (
@@ -294,11 +303,13 @@ const EmployeeDetailsForm = ({ type, id }: FormParams) => {
 				/>
 			</div>
 			<div>
-				{error.length > 0 &&
+				{typeof error !== "string" &&
+					error.length > 0 &&
 					error.map((err) => {
 						return <p>{err}</p>;
 					})}
 			</div>
+			<div>{typeof error === "string" && error}</div>
 		</div>
 	);
 };

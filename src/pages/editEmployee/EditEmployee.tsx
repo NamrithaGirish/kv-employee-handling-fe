@@ -13,7 +13,7 @@ import "./EditEmployee.css";
 import store from "../../store/store";
 import { getDetailsOfEmployee } from "../../utils/EmployeeFunctions";
 import { useGetEmployeeQuery } from "../../api-service/employees/employees.api";
-import { lazy } from "react";
+import { lazy, useEffect } from "react";
 // const LazyEmployeeDetailsForm = lazy(
 // 	() => import("../../components/employeeDetailsForm/EmployeeDetailsForm")
 // );

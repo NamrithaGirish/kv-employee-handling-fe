@@ -43,6 +43,10 @@
 	border-width: 1px;
 	border-radius: 5px;
 }
+.clear[disabled] {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
 .column2 {
 	background-color: white;
 	width: 50%;

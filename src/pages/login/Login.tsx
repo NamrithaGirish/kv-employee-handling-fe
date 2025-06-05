@@ -15,12 +15,14 @@ export const Login = () => {
 	// const mouseTrack = MouseTracker();
 	const [username, setUsername] = useState("");
 	let [password, setPassword] = useState("");
-	let [value, setValue] = useState("");
+	let [usernameValue, setUsernameValue] = useState("");
+	let [passwordValue, setPasswordValue] = useState("");
 	let [clearButtonDisable, setclearButtonDisable] = useState(true);
 	let navigate = useNavigate();
 
 	const localStorageHook = SetLocalStorage("show-password");
 	const authlocalStorageHook = SetLocalStorage("isLoggedIn");
+	// const userIdLocalStorageHook = SetLocalStorage("UserId");
 	// console.log("helooooooooooo");
 
 	useEffect(() => {
@@ -36,13 +38,21 @@ export const Login = () => {
 				localStorage.setItem("token", response.accessToken);
 				console.log(response.accessToken);
 				authlocalStorageHook.setter(true);
-				navigate("/employee");
+
+				// const userId = atob(response.accessToken.split("\\.")[1]);
+				const userId = JSON.parse(
+					atob(response.accessToken.split(".")[1])
+				);
+				console.log("userId", userId.id);
+				localStorage.setItem("UserId", userId.id);
+				navigate(`/employee/${userId.id}`);
 			})
 			.catch((error) => {
+				console.log(error);
 				const errMsg = error.data.error || error.data.message;
 				console.log(error);
 				authlocalStorageHook.setter(false);
-				setValue(errMsg);
+				setPasswordValue(errMsg);
 			});
 		// try {
 		// 	if (response.data) {
@@ -85,16 +95,19 @@ export const Login = () => {
 		if (username.length > 0) {
 			setclearButtonDisable(false);
 			// value=
-		}
-		if (username.length > 10) {
-			console.log("Value :", value);
-			setValue("Username invalid");
-			console.log("Value :", value);
-
-			// value=
 		} else {
-			setValue("");
+			setclearButtonDisable(true);
 		}
+
+		// if (username.length > 10) {
+		// 	console.log("Value :", value);
+		// 	setValue("Username invalid");
+		// 	console.log("Value :", value);
+
+		// 	// value=
+		// } else {
+		// 	setValue("");
+		// }
 
 		// return()=>{
 		//     console.log("in return")
@@ -146,7 +159,7 @@ export const Login = () => {
 								onchange={(
 									e: React.ChangeEvent<HTMLInputElement>
 								) => setUsername(e.target.value)}
-								substring={value}
+								substring={usernameValue}
 								reference={usernameRef}
 								endAdornment={
 									<Button
@@ -170,7 +183,7 @@ export const Login = () => {
 							<InputBox
 								text="Password"
 								classname="textinput"
-								substring={value}
+								substring={passwordValue}
 								onchange={(
 									e: React.ChangeEvent<HTMLInputElement>
 								) => setPassword(e.target.value)}
