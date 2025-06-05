@@ -14,6 +14,7 @@ interface InputBoxParams {
 	endAdornment?: React.ReactNode;
 	value?: string;
 	defaultValue?: string;
+	disabled?: boolean;
 }
 export const InputBox = ({
 	text,
@@ -24,9 +25,9 @@ export const InputBox = ({
 	inputType,
 	endAdornment,
 	value,
-	name,
 	checked,
 	defaultValue,
+	disabled,
 }: InputBoxParams) => {
 	return (
 		<div className="input-box">
@@ -42,6 +43,7 @@ export const InputBox = ({
 				checked={checked}
 				defaultValue={defaultValue}
 				id={text}
+				disabled={disabled}
 			/>
 			{/* <label>{text}</label> */}
 			{endAdornment}

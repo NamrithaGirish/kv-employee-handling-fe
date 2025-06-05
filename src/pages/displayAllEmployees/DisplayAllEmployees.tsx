@@ -1,38 +1,23 @@
 import { useNavigate, useSearchParams } from "react-router-dom";
-// import { MainContent } from "../../components/mainContent/MainContent"
-// import { Sidebar } from "../../components/sidebar/Sidebar"
 import "./DisplayAllEmployees.css";
 import { Header } from "../../components/header/Header";
-// import { InputBox } from "../../components/inputBox/InputBox"
 import { OptionsField } from "../../components/optionsField/OptionsField";
-// import { Button } from "../../components/button/Button"
-// import { DisplayCard } from "../../components/displayCard/DisplayCard"
 import React, { Suspense, useEffect, useState } from "react";
-// import { MdOutlineModeEdit } from "react-icons/md"
 import { IoMdAdd } from "react-icons/io";
 import { lazy } from "react";
 import { LoadingScreen } from "../../components/loading/Loading";
-import store, { useAppSelector } from "../../store/store";
-import { useSelector } from "react-redux";
-import { type RootState } from "../../store/store";
-import {
-	EmployeeRole,
-	EmployeeStatus,
-	type Employee,
-	type EmployeeState,
-} from "../../store/employee/employee.types";
+import { EmployeeStatus } from "../../store/employee/employee.types";
 import { useGetEmployeeListQuery } from "../../api-service/employees/employees.api";
-import { useGetDepartmentListQuery } from "../../api-service/department/department.api";
 
+//LAZY LOAD FOR NON DEFAULT EXPORT
 // const LazyDisplayCard = lazy(()=>import('../../components/displayCard/DisplayCard')
 //     .then(({ DisplayCard }) => ({ default: DisplayCard })),
 // );
 const LazyDisplayCard = lazy(
-	() => import("../../components/displayCard/DisplayCard")
+	() => import("../../components/listingTable/ListingTable")
 );
 
 export const DisplayAllEmployees = () => {
-	// const data1:Employee[]=[];
 	const { data: data1, error } = useGetEmployeeListQuery();
 
 	const [filterParams, setFilterParams] = useSearchParams();
@@ -62,21 +47,15 @@ export const DisplayAllEmployees = () => {
 		"Action",
 	];
 	console.log("Data1 :", data1);
-	// const filteredEmployees =
-	// 	filterParams.get("status") !== null
-	// 		? data1?.filter(
-	// 				(employee) => employee.status == filterParams.get("status")
-	// 		  )
-	// 		: data1;
 	const [filteredData, setFilteredData] = useState(data1);
 
 	useEffect(() => {
-		console.log(filterParams.get("status"));
+		console.log("Status :", filterParams.get("status"));
 		filterData(filterParams.get("status"));
 	}, [filterParams]);
 
 	useEffect(() => {
-		console.log(filterParams.get("status"));
+		console.log("Status :", filterParams.get("status"));
 		filterData(filterParams.get("status"));
 	}, [data1]);
 

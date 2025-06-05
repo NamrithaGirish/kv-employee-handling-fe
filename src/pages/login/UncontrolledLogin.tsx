@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Button } from "../../components/button/Button";
 import { InputBox } from "../../components/inputBox/InputBox";
 import "./Login.css";
+//FOR UNDERSTANDING PURPOSE NOT BEING USED
 const print = () => {
 	console.log("Hello");
 };
@@ -102,14 +103,14 @@ export const UncontrolledLogin = () => {
 									text="clear"
 									classname="clear"
 									type={"button"}
-									functionName={clearPassword}
+									onClickFunction={clearPassword}
 								/>
 							}
 						/>
 						<Button
 							text="Log In"
 							classname="login"
-							functionName={print}
+							onClickFunction={print}
 						/>
 					</form>
 				</div>

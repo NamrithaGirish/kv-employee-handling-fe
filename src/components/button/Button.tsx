@@ -3,13 +3,13 @@ export const Button = ({
 	text,
 	classname,
 	onSubmit,
-	functionName,
+	onClickFunction,
 	type,
 	disabled,
 }: {
 	text: string;
 	classname: string;
-	functionName?: () => void;
+	onClickFunction?: () => void;
 	type?: any;
 	disabled?: boolean;
 	onSubmit?: () => void;
@@ -18,7 +18,7 @@ export const Button = ({
 		<button
 			type={type || "submit"}
 			className={classname}
-			onClick={functionName}
+			onClick={onClickFunction}
 			disabled={disabled}
 			onSubmit={onSubmit}
 		>

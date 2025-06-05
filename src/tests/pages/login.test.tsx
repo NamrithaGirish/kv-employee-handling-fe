@@ -124,7 +124,6 @@ describe("Login Page", () => {
 	it("focus on username on mount", () => {
 		renderLogin();
 
-		// Check if username input is present
 		const usernameInput = screen.getByPlaceholderText("Username");
 		expect(document.activeElement).toBe(usernameInput);
 	});

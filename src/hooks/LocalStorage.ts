@@ -1,17 +1,15 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
-export const SetLocalStorage = (key:string)=>{
-    
-    const [passwordView,setPasswordView] = useState("true"===localStorage.getItem(key)?true:false);
-    // console.log("In setLocal");
-    useEffect(()=>{
-    // console.log("In setLocal use effect");
+export const SetLocalStorage = (key: string) => {
+	const [passwordView, setPasswordView] = useState(
+		"true" === localStorage.getItem(key) ? true : false
+	);
+	useEffect(() => {
+		localStorage.setItem(key, passwordView.toString());
+	}, [passwordView]);
 
-        localStorage.setItem(key,passwordView.toString());
-    },[passwordView])
-
-    return {
-        "value":passwordView,
-        "setter":setPasswordView
-    }
-}
+	return {
+		value: passwordView,
+		setter: setPasswordView,
+	};
+};

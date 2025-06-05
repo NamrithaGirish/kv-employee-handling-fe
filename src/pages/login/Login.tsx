@@ -2,11 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { Button } from "../../components/button/Button";
 import { InputBox } from "../../components/inputBox/InputBox";
 import "./Login.css";
-// import login_image from "../../assets/kv-login.jpeg"
-const print = () => {
-	console.log("Hello");
-};
-// import { MouseTracker } from "../../hooks/MouseTrackingHook";
+import loginImage from "../../assets/kv-login.jpeg";
+import kvLogo from "../../assets/kv-logo.png";
 import { SetLocalStorage } from "../../hooks/LocalStorage";
 import { useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../api-service/auth/login.api";
@@ -22,8 +19,6 @@ export const Login = () => {
 
 	const localStorageHook = SetLocalStorage("show-password");
 	const authlocalStorageHook = SetLocalStorage("isLoggedIn");
-	// const userIdLocalStorageHook = SetLocalStorage("UserId");
-	// console.log("helooooooooooo");
 
 	useEffect(() => {
 		if (authlocalStorageHook.value === true) {
@@ -36,10 +31,8 @@ export const Login = () => {
 			.unwrap()
 			.then((response) => {
 				localStorage.setItem("token", response.accessToken);
-				console.log(response.accessToken);
+				console.log("Access token : ", response.accessToken);
 				authlocalStorageHook.setter(true);
-
-				// const userId = atob(response.accessToken.split("\\.")[1]);
 				const userId = JSON.parse(
 					atob(response.accessToken.split(".")[1])
 				);
@@ -48,108 +41,46 @@ export const Login = () => {
 				navigate(`/employee`);
 			})
 			.catch((error) => {
-				console.log(error);
+				console.log("Login Error : ", error);
 				const errMsg = error.data.error || error.data.message;
-				console.log(error);
 				authlocalStorageHook.setter(false);
 				setPasswordValue(errMsg);
 			});
-		// try {
-		// 	if (response.data) {
-		// 		localStorage.setItem("token", response.data.accessToken);
-		// 		console.log(response.data.accessToken);
-		// 		authlocalStorageHook.setter(true);
-		// 		navigate("/employee");
-		// 	} else {
-		// 		authlocalStorageHook.setter(false);
-		// 		setValue("Invalid Username or Password");
-		// 	}
-		// } catch (error) {
-		// 	console.log("Error : ", error);
-		// }
-
-		// if (username == "hello" && password == "hello") {
-		// 	// localStorage.setItem("isLoggedIn","true");
-		// 	authlocalStorageHook.setter(true);
-		// 	setValue("");
-		// } else {
-		// 	// localStorage.setItem("isLoggedIn","false");
-		// 	authlocalStorageHook.setter(false);
-		// 	setValue("Invalid Username or Password");
-		// }
 	};
-	const handleLogout = () => {
-		authlocalStorageHook.setter(false);
-	};
-	// const [passwordView, setPasswordView] = useState()
-	// useEffect(()=>{
-	//     // if (passwordView) setPasswordView(true);
-	//     // else setPasswordView(false)
-	//     localStorage.setItem('show-password',passwordView.toString())
-	//     // console.log(passwordView);
-
-	// },[passwordView])
 	const usernameRef = useRef<HTMLInputElement>(null);
 	useEffect(() => {
 		// console.log(username);
 		if (username.length > 0) {
 			setclearButtonDisable(false);
-			// value=
 		} else {
 			setclearButtonDisable(true);
 		}
 
-		// if (username.length > 10) {
-		// 	console.log("Value :", value);
-		// 	setValue("Username invalid");
-		// 	console.log("Value :", value);
-
-		// 	// value=
-		// } else {
-		// 	setValue("");
-		// }
-
-		// return()=>{
-		//     console.log("in return")
-		//     setValue("")
-		// }
+		if (username.length > 20) {
+			setUsernameValue("Username too lengthy");
+		}
 	}, [username]);
 	useEffect(() => {
 		if (usernameRef.current) {
-			console.log(usernameRef);
+			console.log("Username Reference : ", usernameRef);
 			usernameRef.current.focus();
 		}
 		return () => {
-			console.log("in ref return");
-			// setValue("")
+			console.log("Returning from reference for username input");
 		};
 	}, [username]);
-	// const displayUsername = (e:React.ChangeEvent<HTMLInputElement>)=>{
-	//     setUsername(e.target.value)
-	// }
-	// if (authlocalStorageHook.value===true){
-	//         return (<Navigate to="/employee" />);
-	// }
-	// else
 	return (
 		<div className="row">
 			<div className="column1">
-				{/* <image>
-                    login_image
-                </image> */}
 				<img
-					src="./src/assets/kv-login.jpeg"
+					src={loginImage}
 					alt="Login Image"
 					className="login_image"
 				/>
 			</div>
 			<div className="column2">
 				<div className="login-box">
-					<img
-						src="./src/assets/kv-logo.png"
-						alt="Keyvalue Logo"
-						className="logo"
-					/>
+					<img src={kvLogo} alt="Keyvalue Logo" className="logo" />
 					<div className="form">
 						<div className="username-clear-holder">
 							<InputBox
@@ -166,7 +97,7 @@ export const Login = () => {
 										classname="clear"
 										type="button"
 										text="Clear"
-										functionName={() => {
+										onClickFunction={() => {
 											setUsername("");
 											setclearButtonDisable(true);
 										}}
@@ -205,15 +136,12 @@ export const Login = () => {
 							/>
 							Show password
 						</div>
-						{/* {password && <p>
-                                The password is {password}
-                            </p>} */}
 						<Button
 							type={"submit"}
 							text="Log In"
 							classname="login"
 							disabled={isLoading}
-							functionName={handleLogin}
+							onClickFunction={handleLogin}
 						/>
 					</div>
 				</div>

@@ -2,29 +2,21 @@
 import { MdOutlineModeEdit } from "react-icons/md";
 import { FaRegTrashCan } from "react-icons/fa6";
 
-import "./DisplayCard.css";
+import "./ListingTable.css";
 import { useNavigate } from "react-router-dom";
 import Popup from "reactjs-popup";
 import { PopupComponent } from "../popup/Popup";
 import { useState } from "react";
-import type {
-	Employee,
-	EmployeeState,
-} from "../../store/employee/employee.types";
-// import { deleteEmployee } from "../../store/employee/employeeReducer";
+import type { Employee } from "../../store/employee/employee.types";
 import { useDeleteEmployeeListMutation } from "../../api-service/employees/employees.api";
-// import { useGetDepartmentListQuery } from "../../api-service/department/department.api";
 interface display {
 	title: string[];
 	data: Employee[];
-	// statusFilter:string
 }
-const DisplayCard = ({ title, data }: display) => {
+const ListingTable = ({ title, data }: display) => {
 	const [deleteEmployee] = useDeleteEmployeeListMutation();
-
-	// console.log(employee)
 	const navigate = useNavigate();
-	// const dispatch = useAppDispatch();
+	// const dispatch = useAppDispatch(); // FOR REACT TOOLKIT
 	const navigateToEdit = (
 		e: React.MouseEvent<HTMLButtonElement>,
 		id: number
@@ -33,14 +25,14 @@ const DisplayCard = ({ title, data }: display) => {
 		navigate(`/employee/edit/${id}`);
 	};
 	// const data1 = useSelector((state: EmployeeState) => state.employees);
-	const [open, setOpen] = useState(false);
+	// const [open, setOpen] = useState(false);
 	const [activePopupId, setActivePopupId] = useState<number | null>(null);
 
 	const deleteEmployeeAlert = (id: number) => {
 		const data = deleteEmployee({ id });
 		console.log(data);
 		setActivePopupId(null);
-		setOpen(false);
+		//CALLING DISPATCH FOR RTK
 		// dispatch(deleteEmployee(id));
 		// console.log("final state" ,values);
 		// store.dispatch({
@@ -88,15 +80,6 @@ const DisplayCard = ({ title, data }: display) => {
 								</div>
 							</td>
 							<td>{content.experience}</td>
-							{/* {
-                                    Object.values(content).map((value)=>{
-                                        return(
-                                            <td>
-                                                {value}
-                                            </td>
-                                        )
-                                    })
-                                } */}
 							<td>
 								<div className="action-emp">
 									<Popup
@@ -111,14 +94,13 @@ const DisplayCard = ({ title, data }: display) => {
 											text={`Do you want to delete the Employee ${content.employeeId} ?`}
 											yesFnCall={() => {
 												console.log(
-													"id to deleteeeeeeeeeee :",
+													"id to delete :",
 													content.id
 												);
 												deleteEmployeeAlert(content.id);
 											}}
 											noFnCall={() => {
 												setActivePopupId(null);
-												setOpen(false);
 											}}
 										/>
 									</Popup>
@@ -129,7 +111,6 @@ const DisplayCard = ({ title, data }: display) => {
 										) => {
 											e.stopPropagation();
 											setActivePopupId(content.id);
-											setOpen(true);
 										}}
 									>
 										<FaRegTrashCan className="delete-icon" />
@@ -157,4 +138,4 @@ const DisplayCard = ({ title, data }: display) => {
 		</div>
 	);
 };
-export default DisplayCard;
+export default ListingTable;

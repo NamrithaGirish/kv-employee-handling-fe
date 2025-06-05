@@ -1,11 +1,9 @@
-// import { format } from "date-fns"
 import { useNavigate } from "react-router-dom";
 import {
 	EmployeeRole,
 	EmployeeStatus,
 	type Employee,
 } from "../../store/employee/employee.types";
-import { useAppDispatch } from "../../store/store";
 import { tempEmployee } from "../../utils/DataFormatter";
 import { Button } from "../button/Button";
 import { InputBox } from "../inputBox/InputBox";
@@ -26,33 +24,22 @@ interface FormParams {
 }
 
 const EmployeeDetailsForm = ({ type, id }: FormParams) => {
-	// const {data:data} = useGetEmployeeQuery
 	const [error, setError] = useState([]);
 	const { data } = useGetEmployeeQuery({ id: Number(id) });
 
 	const checkIsEdit = () => {
 		return type == "edit";
 	};
-	// if (checkIsEdit() && !data) return;
-	// useEffect(() => {
-	// 	console.log("inside useefect for data...............");
-	// 	checkIsEdit() && data
-	// 		? setEmployeeValues(data)
-	// 		: setEmployeeValues(tempEmployee);
-	// 	// checkIsEdit()?
-	// }, [data]);
 	const [employeeValues, setEmployeeValues] = useState(
 		data ? data : tempEmployee
 	);
-	// useEffect(() => {
-	// 	setEmployeeValues(data ? data : tempEmployee);
-	// }, [data]);
+	useEffect(() => {
+		setEmployeeValues(data ? data : tempEmployee);
+	}, [data]);
 
 	console.log("Loading form with data : ", data);
 	const { data: deptList } = useGetDepartmentListQuery();
 	console.log("departments :", deptList);
-	const dispatch = useAppDispatch();
-	// const  = use();
 	const navigate = useNavigate();
 	const [edit] = useUpdateEmployeeMutation();
 	const [create] = useCreateEmployeeMutation();
@@ -63,11 +50,11 @@ const EmployeeDetailsForm = ({ type, id }: FormParams) => {
 	useEffect(() => {
 		setError([]);
 	}, [employeeValues]);
-
-	const formatDate = (date: string | undefined | Date) => {
-		const formatedDate = new Date(date ? date : "");
-		return `${formatedDate.getFullYear()}-0${formatedDate.getMonth()}-${formatedDate.getDate()}`;
-	};
+	//FORMAT DATE NOT USED - EASIER WAY TO DISPLAY AND SEND FOUND OUT
+	// const formatDate = (date: string | undefined | Date) => {
+	// 	const formatedDate = new Date(date ? date : "");
+	// 	return `${formatedDate.getFullYear()}-0${formatedDate.getMonth()}-${formatedDate.getDate()}`;
+	// };
 	const createEmployee = async () => {
 		console.log("final state", employeeValues);
 		await create(employeeValues)
@@ -86,14 +73,6 @@ const EmployeeDetailsForm = ({ type, id }: FormParams) => {
 					error.data.message || error.data.error
 				);
 			});
-		// const data1 = await create(employeeValues);
-		// console.log("after creating data : ", data1.data);
-
-		// // dispatch(addEmployee(employeeValues));
-
-		// // useDispatch(addEmployee);
-		// navigate(`/employee/${data1.data?.id}`);
-		// );
 	};
 	const editEmployee = async () => {
 		// const { data: data1 } = useUpdateEmployeeQuery();
@@ -108,13 +87,6 @@ const EmployeeDetailsForm = ({ type, id }: FormParams) => {
 				console.log("Edit error : ", error);
 				setError(error.data.error || error.data.message);
 			});
-		// console.log(data1);
-		// console.log("final state", employeeValues);
-		// store.dispatch({
-		// 	type: EMPLOYEE_ACTION_TYPES.UPDATE,
-		// 	payload: employeeValues,
-		// });
-		// navigate(`/employee/${employeeValues.id}`);
 	};
 	const updateEmployeeData = (
 		e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -139,7 +111,6 @@ const EmployeeDetailsForm = ({ type, id }: FormParams) => {
 	};
 	useEffect(() => {
 		console.log("Employeevalues : ", employeeValues);
-		// console.log(`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`)
 	}, [employeeValues]);
 	return (
 		<div className="employee-creation-details">
@@ -177,10 +148,8 @@ const EmployeeDetailsForm = ({ type, id }: FormParams) => {
 				type="date"
 				value={
 					checkIsEdit()
-						? // ? formatDate(
-						  data?.joiningDate.toString().substring(0, 10)
-						: //   )
-						  ""
+						? data?.joiningDate.toString().substring(0, 10)
+						: ""
 				}
 				onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
 					updateEmployeeData(e, "joiningDate");
@@ -218,14 +187,7 @@ const EmployeeDetailsForm = ({ type, id }: FormParams) => {
 				label="Department"
 				classname="department"
 				options={deptList ? deptList : []}
-				value={
-					// checkIsEdit()
-					// 	? data?.deptId !== null
-					// 		? data?.deptId
-					// 		: ""
-					// 	: "Department"
-					checkIsEdit() ? data?.dept?.id : "Department"
-				}
+				value={checkIsEdit() ? data?.dept?.id : "Department"}
 				onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
 					updateEmployeeData(e, "deptId", "", true);
 				}}
@@ -294,12 +256,14 @@ const EmployeeDetailsForm = ({ type, id }: FormParams) => {
 				<Button
 					text={"Save"}
 					classname="create"
-					functionName={checkIsEdit() ? editEmployee : createEmployee}
+					onClickFunction={
+						checkIsEdit() ? editEmployee : createEmployee
+					}
 				/>
 				<Button
 					text="Cancel"
 					classname="cancel"
-					functionName={() => setEmployeeValues(tempEmployee)}
+					onClickFunction={() => navigate(-1)}
 				/>
 			</div>
 			<div>

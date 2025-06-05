@@ -1,4 +1,3 @@
-import { format } from "date-fns";
 import { MdOutlineModeEdit } from "react-icons/md";
 import { useNavigate, useParams } from "react-router-dom";
 import { useGetEmployeeQuery } from "../../api-service/employees/employees.api";
@@ -6,10 +5,10 @@ import { DisplayDiv } from "../../components/displayDiv/DisplayDiv";
 import { Header } from "../../components/header/Header";
 import type { Address } from "../../store/employee/employee.types";
 import "./DisplayEmployee.css";
-function camelCaseToNormal(camelCaseString: string) {
-	const result = camelCaseString.replace(/([A-Z])/g, " $1");
-	return result.charAt(0).toUpperCase() + result.slice(1);
-}
+// function camelCaseToNormal(camelCaseString: string) {
+// 	const result = camelCaseString.replace(/([A-Z])/g, " $1");
+// 	return result.charAt(0).toUpperCase() + result.slice(1);
+// }
 const formatAddress = (address: Address) => {
 	return (
 		address.houseNo +

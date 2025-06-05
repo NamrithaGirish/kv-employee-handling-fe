@@ -16,6 +16,7 @@ import NotFound from "./pages/notFound/NotFound";
 import { Layout } from "./components/layout/Layout";
 import { EditEmployee } from "./pages/editEmployee/EditEmployee";
 import { DisplayAllEmployees } from "./pages/displayAllEmployees/DisplayAllEmployees";
+import ErrorPage from "./pages/errorPage/ErrorPage";
 // const isLoggedIn= ()=>{
 //   const authenticated = localStorage.getItem("isLoggedIn");
 //   console.log(authenticated);
@@ -25,7 +26,7 @@ const routes = createBrowserRouter([
 	{
 		path: "/",
 		element: <Navigate to="/login" />,
-		errorElement: <NotFound />,
+		errorElement: <ErrorPage />,
 	},
 	{
 		path: "/login",
@@ -41,7 +42,7 @@ const routes = createBrowserRouter([
 			{ path: "edit/:id", element: <EditEmployee /> },
 			{ path: ":id", element: <DisplayEmployee /> },
 		],
-		errorElement: <NotFound />,
+		errorElement: <ErrorPage />,
 	},
 	{
 		path: "*",
@@ -55,11 +56,6 @@ function App() {
 	return (
 		<>
 			<RouterProvider router={routes} />
-			{/* <Login /> */}
-			{/* <CreateEmployee /> */}
-			{/* <EditEmployee /> */}
-			{/* <DisplayEmployee /> */}
-			{/* <UncontrolledLogin /> */}
 		</>
 	);
 }

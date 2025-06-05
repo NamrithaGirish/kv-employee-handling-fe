@@ -3,7 +3,7 @@ import kv_logo from "../../assets/kv-logo.png";
 import createEmployeeImage from "../../assets/icon.svg";
 import { SetLocalStorage } from "../../hooks/LocalStorage";
 import { Button } from "../button/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 export const Sidebar = () => {
 	const navigate = useNavigate();
 	const authlocalStorageHook = SetLocalStorage("isLoggedIn");
@@ -28,7 +28,7 @@ export const Sidebar = () => {
 							text="Profile Page"
 							classname="logout"
 							type={"button"}
-							functionName={() => {
+							onClickFunction={() => {
 								navigate(
 									`/employee/${localStorage.getItem(
 										"UserId"
@@ -47,7 +47,7 @@ export const Sidebar = () => {
 							text="Employee List"
 							classname="logout"
 							type={"button"}
-							functionName={() => {
+							onClickFunction={() => {
 								navigate("/employee");
 							}}
 						/>
@@ -59,7 +59,7 @@ export const Sidebar = () => {
 							text="Create Employee"
 							classname="logout"
 							type={"button"}
-							functionName={() => {
+							onClickFunction={() => {
 								navigate("/employee/create");
 							}}
 						/>
@@ -71,7 +71,7 @@ export const Sidebar = () => {
 							text="Log Out"
 							classname="logout"
 							type={"button"}
-							functionName={handleLogout}
+							onClickFunction={handleLogout}
 						/>
 					</li>
 				</ul>
